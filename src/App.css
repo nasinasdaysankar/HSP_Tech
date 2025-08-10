@@ -174,29 +174,38 @@ body {
 
 
 /* --- Floating Keep In Touch Button Styles --- */
+/* --- Floating Keep In Touch Button Styles --- */
+
 .floating-keep-in-touch {
+  /* Positioning */
   position: fixed;
-  top: 12rem;
-  left: 0;
+  bottom: 2rem; /* Position from the bottom */
+  right: 0rem;  /* Position from the right */
   z-index: 1050;
+
+  /* Appearance for a horizontal button */
   background-color: #1e88e5;
   color: #ffffff;
   font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  writing-mode: vertical-rl;
-  padding: 2rem 1.2rem;
+  
+  /* Reset text direction and padding for horizontal */
+  writing-mode: horizontal-tb;
+  padding: 1rem 1.5rem;
+  
   border: none;
-  border-radius: 0 12px 12px 0;
-  box-shadow: 3px 0px 15px rgba(0, 0, 0, 0.15);
+  border-radius: 50px; /* Pill shape for a modern look */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
 .floating-keep-in-touch:hover {
   background-color: #0d47a1;
-  transform: translateX(5px);
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+  /* A subtle "lift" effect on hover */
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
 

@@ -341,7 +341,7 @@ body {
 
     /* --- Keep these existing mobile styles --- */
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    gap: 0rem;
   }
 
   .stat-icon {

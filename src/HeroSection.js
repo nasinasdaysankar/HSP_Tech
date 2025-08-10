@@ -19,9 +19,11 @@ const HeroSection = () => {
         <h1 className="hero-headline">
           Premier Academic Research & Publication Services
         </h1>
-        <p className="hero-subheadline">
-          Empowering researchers and academics with comprehensive publication, patent, and funding proposal services. Your trusted partner in academic excellence since inception.
-        </p>
+<p className="hero-subheadline">
+  Empowering researchers and academics with comprehensive publication, patent, and 
+  <br />
+  funding proposal services. Your trusted partner in academic excellence since inception.
+</p>
         <div className="hero-button-group">
           <button className="hero-button primary">Get Started Today</button>
           <button className="hero-button secondary">Explore Services</button>

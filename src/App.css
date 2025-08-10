@@ -864,7 +864,9 @@ body {
   .footer h4 {
     display: block;
   }
-
+.hero-subheadline {
+  overflow-wrap: break-word;
+}
   .mission-vision-values {
   margin-top: 2rem;
 }

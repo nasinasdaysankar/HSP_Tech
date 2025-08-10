@@ -3,6 +3,8 @@ import Header from './Header';
 import HeroSection from './HeroSection';
 import ScrollingLogos from './ScrollingLogos';
 import DetailedServices from './DetailedServices';
+import BookCatalogueSection from './BookCatalogueSection'; // New import
+import DeliveryPolicySection from './DeliveryPolicySection'; // New import
 import Footer from './Footer';
 import AboutModal from './AboutModal';
 import KeepInTouchForm from './KeepInTouchForm';
@@ -23,15 +25,25 @@ function App() {
       <Header onAboutClick={openAboutModal} />
       
       <main>
-        <HeroSection onKeepInTouchClick={openKeepInTouch} />
+        <HeroSection />
         <ScrollingLogos />
         <DetailedServices />
+        
+        {/* New sections added here */}
+        <BookCatalogueSection />
+        <DeliveryPolicySection />
       </main>
       
       <Footer />
 
+      {/* Modals */}
       {isAboutModalOpen && <AboutModal onClose={closeAboutModal} />}
       {isKeepInTouchOpen && <KeepInTouchForm onClose={closeKeepInTouch} />}
+
+      {/* The floating button */}
+      <button className="floating-keep-in-touch" onClick={openKeepInTouch}>
+        Keep In Touch
+      </button>
     </div>
   );
 }

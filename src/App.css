@@ -316,6 +316,10 @@ body {
   }
 
   .hero-content {
+    /* Center everything inside the hero content on mobile */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 90%;
     padding-left: 0;
     text-align: center;
@@ -328,11 +332,16 @@ body {
   }
 
   .stats-grid {
+    /* --- This is the fix --- */
+    position: relative; /* Return to the normal document flow */
+    bottom: auto;       /* Remove absolute positioning */
+    left: auto;         /* Remove absolute positioning */
+    width: 100%;        /* Take the full container width */
+    margin-top: 0rem;   /* Add significant space above the stats */
+
+    /* --- Keep these existing mobile styles --- */
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
-    bottom: 1rem;
-    left: 5%;
-    width: 90%;
   }
 
   .stat-icon {

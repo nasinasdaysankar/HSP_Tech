@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import hspLogo from './logohsr.jpeg';
 
-// The onKeepInTouchClick prop has been removed from here
 const Header = ({ onAboutClick }) => {
+  // State to manage whether the mobile menu is open or closed
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Function to toggle the menu state
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <header className="header">
       <div className="container">
@@ -10,16 +17,25 @@ const Header = ({ onAboutClick }) => {
            <img src={hspLogo} alt="HSP Technologies Logo" className="logo-img" />
            <a href="#home">HSP Technologies</a>
         </div>
-        <nav>
+
+        {/* The 'nav' element now gets a conditional class */}
+        <nav className={isMobileMenuOpen ? 'mobile-menu-open' : ''}>
+          {/* We add a close button inside the mobile menu */}
+          <button className="close-mobile-menu" onClick={toggleMobileMenu}>&times;</button>
           <ul>
-            <li><a href="#home">🏠 Home</a></li>
-            <li><button className="nav-button" onClick={onAboutClick}>ℹ️ About</button></li>
-            <li><a href="#services">🛠️ Services</a></li>
-          
-            <li><a href="#contact">📧 Contact Us</a></li>
-            {/* The list item for the button has been completely removed */}
+            <li><a href="#home" onClick={toggleMobileMenu}>🏠 Home</a></li>
+            <li><button className="nav-button" onClick={() => { onAboutClick(); toggleMobileMenu(); }}>ℹ️ About</button></li>
+            <li><a href="#services" onClick={toggleMobileMenu}>🛠️ Services</a></li>
+            <li><a href="#contact" onClick={toggleMobileMenu}>📧 Contact Us</a></li>
           </ul>
         </nav>
+
+        {/* This is the hamburger icon button, only visible on mobile */}
+        <button className="hamburger-button" onClick={toggleMobileMenu}>
+          <div className="hamburger-line"></div>
+          <div className="hamburger-line"></div>
+          <div className="hamburger-line"></div>
+        </button>
       </div>
     </header>
   );

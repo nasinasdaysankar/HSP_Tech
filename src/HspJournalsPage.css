@@ -1,0 +1,179 @@
+/* Container for the whole page */
+.journal-page-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.7;
+  color: #333;
+}
+
+/* Header title */
+.journal-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  border-bottom: 3px solid #0056b3; /* A nice blue color */
+  padding-bottom: 1rem;
+}
+
+.journal-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #004085;
+}
+
+/* Tab navigation bar */
+.journal-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.journal-nav button {
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0056b3;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Tab hover effect */
+.journal-nav button:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+}
+
+/* Active tab style */
+.journal-nav button.active {
+  background-color: #0056b3;
+  color: #ffffff;
+  border-color: #0056b3;
+  box-shadow: 0 4px 12px rgba(0, 86, 179, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Main content area */
+.journal-content {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.journal-content section {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.journal-content h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #004085;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.journal-content h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.journal-content p {
+  margin-bottom: 1rem;
+}
+
+.journal-content a {
+  color: #0056b3;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.journal-content a:hover {
+  text-decoration: underline;
+}
+
+/* Styling for lists */
+.journal-content ul,
+.journal-content ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.journal-content li {
+  margin-bottom: 0.75rem;
+}
+
+.journal-content strong {
+  color: #004085;
+}
+
+/* Styling for the scope/keywords list */
+.scope-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.scope-item {
+  background-color: #e7f3ff;
+  color: #004085;
+  padding: 0.25rem 0.75rem;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid #b3d7ff;
+}
+
+/* Styling for the info box */
+.alert-info {
+  background-color: #e7f3ff;
+  border-left: 5px solid #0056b3;
+  padding: 1.5rem;
+  border-radius: 4px;
+  margin: 1.5rem 0;
+}
+
+.alert-info p {
+  margin: 0;
+  color: #004085;
+  font-weight: 500;
+}
+
+/* Styling for indexing list */
+.indexing-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.indexing-list li {
+  font-weight: 600;
+  color: #333;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed #eee;
+}
+
+.indexing-list li:first-child {
+  border-top: 1px dashed #eee;
+}
+
+.journal-content em {
+  color: #555;
+  font-style: italic;
+}

@@ -1,7 +1,11 @@
+// src/components/ServiceCard.js
+
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 const ServiceCard = ({ category, items, index, imageUrl }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  // --- THIS LINE IS NOW FIXED ---
+  const [isVisible, setIsVisible] = useState(false); 
   const cardRef = useRef(null);
 
   useEffect(() => {
@@ -34,16 +38,41 @@ const ServiceCard = ({ category, items, index, imageUrl }) => {
     >
       <img src={imageUrl} alt={`${category} image`} className="service-image" />
       <h3>{category}</h3>
+      
       <ul>
-        {items.map((item, itemIndex) => (
-          <li key={itemIndex}>
-            {typeof item === 'object' && item.highlight ? (
-              <span className="highlight-text">{item.text}</span>
-            ) : (
-              item
-            )}
-          </li>
-        ))}
+        {items.map((item, itemIndex) => {
+          
+          // Check if item is an object
+          if (typeof item === 'object' && item !== null) {
+            
+            // Case 1: It's an object with a 'path' (render a Link)
+            if (item.path) {
+              return (
+                <li key={itemIndex}>
+                  <Link 
+                    to={item.path} 
+                    className={item.highlight ? 'highlight-text' : ''}
+                  >
+                    {item.text}
+                  </Link>
+                </li>
+              );
+            }
+            
+            // Case 2: It's an object without a 'path' (render a span)
+            return (
+              <li key={itemIndex}>
+                <span className={item.highlight ? 'highlight-text' : ''}>
+                  {item.text}
+                </span>
+              </li>
+            );
+          }
+
+          // Case 3: It's just a string (render as is)
+          return <li key={itemIndex}>{item}</li>;
+          
+        })}
       </ul>
     </div>
   );

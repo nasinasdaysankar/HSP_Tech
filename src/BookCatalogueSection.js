@@ -36,7 +36,6 @@ const BookCatalogueSection = () => {
       title: "Research Methodology in Engineering",
       author: "Dr. HSP Team",
       category: 'research',
-      price: "₹450",
       image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=300&h=400&fit=crop",
       description: "Comprehensive guide to research methodologies in engineering disciplines."
     },
@@ -45,7 +44,6 @@ const BookCatalogueSection = () => {
       title: "Academic Writing Excellence",
       author: "Prof. Academic Expert",
       category: 'academic',
-      price: "₹350",
       image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&h=400&fit=crop",
       description: "Master the art of academic writing with proven techniques."
     },
@@ -54,7 +52,6 @@ const BookCatalogueSection = () => {
       title: "Publication Success Guide",
       author: "Dr. Publication Pro",
       category: 'publication',
-      price: "₹550",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop",
       description: "Step-by-step guide to successful academic publishing."
     },
@@ -63,7 +60,6 @@ const BookCatalogueSection = () => {
       title: "Patent Filing Handbook",
       author: "Legal Expert Team",
       category: 'patents',
-      price: "₹650",
       image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=300&h=400&fit=crop",
       description: "Complete handbook for patent filing and intellectual property."
     },
@@ -72,7 +68,6 @@ const BookCatalogueSection = () => {
       title: "Data Analysis for Researchers",
       author: "Dr. Data Scientist",
       category: 'research',
-      price: "₹500",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=300&h=400&fit=crop",
       description: "Statistical analysis and data interpretation for research."
     },
@@ -81,7 +76,6 @@ const BookCatalogueSection = () => {
       title: "Grant Writing Mastery",
       author: "Funding Expert",
       category: 'academic',
-      price: "₹400",
       image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=300&h=400&fit=crop",
       description: "Master the art of writing successful grant proposals."
     }

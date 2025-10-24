@@ -22,6 +22,9 @@ const DeliveryPolicySection = () => {
     };
   }, []);
 
+  // ... (all your styles and component logic from the code you sent) ...
+  // ... (I'm skipping pasting all 300 lines of styles here for brevity) ...
+
   const sectionStyle = {
     background: 'linear-gradient(225deg, #ffffff 0%, #ffffff 50%, #6f42c1 50%, #6f42c1 100%)',
     padding: '4rem 0',
@@ -235,7 +238,7 @@ const DeliveryPolicySection = () => {
       >
         <strong>3. Credit Card / Debit Card / Net Banking</strong>
         <br />
-        Secure online payment through our E-Billing Solutions gateway partner
+        Secure online payment through our E-BillingSolutions gateway partner
       </div>
 
       <div 

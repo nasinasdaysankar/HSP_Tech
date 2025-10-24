@@ -1,8 +1,11 @@
 // src/components/Footer.js
 import React from 'react';
+import { Link } from 'react-router-dom'; // <-- 1. IMPORT Link
+import { HashLink } from 'react-router-hash-link'; // <-- 2. IMPORT HashLink
 
 const Footer = () => {
   return (
+    // This id="contact" is correct and matches the Header link
     <footer id="contact" className="footer">
       <div className="container footer-grid">
         
@@ -12,19 +15,19 @@ const Footer = () => {
           <p>
             Empowering researchers worldwide with comprehensive academic services and publication support.
           </p>
-          {/* You can add social media icons here if you have them */}
         </div>
 
         {/* Column 2: New "Our Services" List */}
         <div className="footer-links">
           <h4>Our Services</h4>
           <ul>
-            <li><a href="#services">SCIE Publications</a></li>
-            <li><a href="#services">Scopus Publications</a></li>
-            <li><a href="#services">Patent Applications</a></li>
-            <li><a href="#services">Funding Proposals</a></li>
-            <li><a href="#services">Conference Support</a></li>
-            <li><a href="#services">Writing Services</a></li>
+            {/* 3. Changed all <a> tags to <HashLink> */}
+            <li><HashLink smooth to="/#services">SCIE Publications</HashLink></li>
+            <li><HashLink smooth to="/#services">Scopus Publications</HashLink></li>
+            <li><HashLink smooth to="/#services">Patent Applications</HashLink></li>
+            <li><HashLink smooth to="/#services">Funding Proposals</HashLink></li>
+            <li><HashLink smooth to="/#services">Conference Support</HashLink></li>
+            <li><HashLink smooth to="/#services">Writing Services</HashLink></li>
           </ul>
         </div>
         
@@ -39,14 +42,15 @@ const Footer = () => {
           <p>⏰ 24/7 Call & WhatsApp Support</p>
         </div>
 
-        {/* Column 4: Quick Links (from your original code) */}
+        {/* Column 4: Quick Links */}
         <div className="footer-links">
           <h4>Quick Links</h4>
           <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#journals">Journals</a></li>
-            <li><a href="#books">Books</a></li>
+            {/* 4. Changed <a> tags to <Link> and <HashLink> */}
+            <li><Link to="/">Home</Link></li>
+            <li><HashLink smooth to="/#about">About Us</HashLink></li>
+            <li><HashLink smooth to="/#journals">Journals</HashLink></li>
+            <li><HashLink smooth to="/#books">Books</HashLink></li>
           </ul>
         </div>
 

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // <-- 1. IMPORT Link
+import { HashLink } from 'react-router-hash-link'; // <-- 2. IMPORT HashLink
 import hspLogo from './logohsr.jpeg';
 
 const Header = ({ onAboutClick }) => {
@@ -10,12 +12,21 @@ const Header = ({ onAboutClick }) => {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  // This function is for the 'About' button
+  const handleAboutClick = () => {
+    onAboutClick();
+    if (isMobileMenuOpen) {
+      toggleMobileMenu();
+    }
+  };
+
   return (
     <header className="header">
       <div className="container">
         <div className="logo">
            <img src={hspLogo} alt="HSP Technologies Logo" className="logo-img" />
-           <a href="#home">HSP Technologies</a>
+           {/* 3. Changed <a> to <Link> to navigate to Home */}
+           <Link to="/">HSP Technologies</Link>
         </div>
 
         {/* The 'nav' element now gets a conditional class */}
@@ -23,10 +34,17 @@ const Header = ({ onAboutClick }) => {
           {/* We add a close button inside the mobile menu */}
           <button className="close-mobile-menu" onClick={toggleMobileMenu}>&times;</button>
           <ul>
-            <li><a href="#home" onClick={toggleMobileMenu}>🏠 Home</a></li>
-            <li><button className="nav-button" onClick={() => { onAboutClick(); toggleMobileMenu(); }}>ℹ️ About</button></li>
-            <li><a href="#services" onClick={toggleMobileMenu}>🛠️ Services</a></li>
-            <li><a href="#contact" onClick={toggleMobileMenu}>📧 Contact Us</a></li>
+            {/* 4. Changed <a> to <Link> for Home */}
+            <li><Link to="/" onClick={toggleMobileMenu}>🏠 Home</Link></li>
+            
+            {/* 5. Kept 'About' as a button, but it now uses the new handler */}
+            <li><button className="nav-button" onClick={handleAboutClick}>ℹ️ About</button></li>
+            
+            {/* 6. Changed <a> to <HashLink> for Services */}
+            <li><HashLink smooth to="/#services" onClick={toggleMobileMenu}>🛠️ Services</HashLink></li>
+            
+            {/* 7. Changed <a> to <HashLink> for Contact Us */}
+            <li><HashLink smooth to="/#contact" onClick={toggleMobileMenu}>📧 Contact Us</HashLink></li>
           </ul>
         </nav>
 

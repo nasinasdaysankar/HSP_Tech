@@ -34,18 +34,41 @@ const Header = ({ onAboutClick }) => {
           {/* We add a close button inside the mobile menu */}
           <button className="close-mobile-menu" onClick={toggleMobileMenu}>&times;</button>
           <ul>
-            {/* 4. Changed <a> to <Link> for Home */}
-            <li><Link to="/" onClick={toggleMobileMenu}>🏠 Home</Link></li>
-            
-            {/* 5. Kept 'About' as a button, but it now uses the new handler */}
-            <li><button className="nav-button" onClick={handleAboutClick}>ℹ️ About</button></li>
-            
-            {/* 6. Changed <a> to <HashLink> for Services */}
-            <li><HashLink smooth to="/#services" onClick={toggleMobileMenu}>🛠️ Services</HashLink></li>
-            
-            {/* 7. Changed <a> to <HashLink> for Contact Us */}
-            <li><HashLink smooth to="/#contact" onClick={toggleMobileMenu}>📧 Contact Us</HashLink></li>
-          </ul>
+  <li>
+    <Link to="/" onClick={toggleMobileMenu}>🏠 Home</Link>
+  </li>
+
+  <li>
+    <button className="nav-button" onClick={handleAboutClick}>ℹ️ About</button>
+  </li>
+
+  <li>
+    <HashLink smooth to="/#services" onClick={toggleMobileMenu}>🛠️ Services</HashLink>
+  </li>
+
+  <li>
+    <HashLink smooth to="/#contact" onClick={toggleMobileMenu}>📧 Contact Us</HashLink>
+  </li>
+
+  {/* ⭐ NEW ADMIN BUTTON */}
+  <li>
+    <Link 
+      to="/admin" 
+      onClick={toggleMobileMenu} 
+      className="admin-button"
+      style={{ 
+        fontWeight: "700", 
+        color: "#030303ff",
+        display: "flex",
+        alignItems: "center",
+        gap: "5px"
+      }}
+    >
+      🔑 Admin
+    </Link>
+  </li>
+</ul>
+
         </nav>
 
         {/* This is the hamburger icon button, only visible on mobile */}

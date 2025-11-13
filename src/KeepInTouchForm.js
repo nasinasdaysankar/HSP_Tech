@@ -1,12 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import hspLogo from './logohsr.jpeg';
+import { db, serverTimestamp } from './firebase';
+import { collection, addDoc } from 'firebase/firestore';
 
 const KeepInTouchForm = ({ onClose }) => {
-  const handleSubmit = (e) => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [serviceInterest, setServiceInterest] = useState('');
+  const [message, setMessage] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // In a real app, you would handle form submission here
-    console.log('Form submitted!');
-    onClose(); // Close form after submission
+    setError('');
+    setSuccess('');
+
+    try {
+      setSubmitting(true);
+      await addDoc(collection(db, 'contactSubmissions'), {
+        firstName,
+        lastName,
+        email,
+        serviceInterest: serviceInterest || null,
+        message: message || null,
+        createdAt: serverTimestamp(),
+      });
+      setSuccess('Thanks! Your message has been sent.');
+      // Optional: close after short delay
+      setTimeout(() => onClose(), 1200);
+    } catch (err) {
+      console.error('Failed to submit contact form', err);
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -24,22 +54,47 @@ const KeepInTouchForm = ({ onClose }) => {
           <div className="form-group-inline">
             <div className="form-group">
                 <label htmlFor="firstName">First Name</label>
-                <input type="text" id="firstName" placeholder="e.g., John" required />
+                <input
+                  type="text"
+                  id="firstName"
+                  placeholder="e.g., John"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                />
             </div>
             <div className="form-group">
                 <label htmlFor="lastName">Last Name</label>
-                <input type="text" id="lastName" placeholder="e.g., Doe" required />
+                <input
+                  type="text"
+                  id="lastName"
+                  placeholder="e.g., Doe"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  required
+                />
             </div>
           </div>
 
           <div className="form-group">
             <label htmlFor="email">Email Address</label>
-            <input type="email" id="email" placeholder="you@example.com" required />
+            <input
+              type="email"
+              id="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
           
           <div className="form-group">
             <label htmlFor="serviceInterest">Service Interest</label>
-            <select id="serviceInterest" defaultValue="">
+            <select
+              id="serviceInterest"
+              value={serviceInterest}
+              onChange={(e) => setServiceInterest(e.target.value)}
+            >
               <option value="" disabled>Select a service...</option>
               <option value="Journal Publication">Journal Publication</option>
               <option value="Book Publication">Book Publication</option>
@@ -51,10 +106,21 @@ const KeepInTouchForm = ({ onClose }) => {
 
           <div className="form-group">
             <label htmlFor="message">Message</label>
-            <textarea id="message" rows="4" placeholder="Type your message here..."></textarea>
+            <textarea
+              id="message"
+              rows="4"
+              placeholder="Type your message here..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
           </div>
 
-          <button type="submit" className="login-button">Send Message</button>
+          {error && <div style={{ color: 'red', marginBottom: '0.75rem' }}>{error}</div>}
+          {success && <div style={{ color: 'green', marginBottom: '0.75rem' }}>{success}</div>}
+
+          <button type="submit" className="login-button" disabled={submitting}>
+            {submitting ? 'Sending...' : 'Send Message'}
+          </button>
         </form>
       </div>
     </div>

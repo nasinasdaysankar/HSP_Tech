@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { db } from './firebase';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 
 const BookCatalogueSection = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [isVisible, setIsVisible] = useState(false);
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -20,6 +24,23 @@ const BookCatalogueSection = () => {
     return () => {
       if (section) observer.unobserve(section);
     };
+  }, []);
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const q = query(collection(db, 'books'), orderBy('title'));
+        const snapshot = await getDocs(q);
+        const items = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+        setBooks(items);
+      } catch (e) {
+        console.warn('Falling back to sample books because Firestore read failed or is empty:', e);
+        setBooks(sampleBooks);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBooks();
   }, []);
 
   const bookCategories = [
@@ -81,9 +102,9 @@ const BookCatalogueSection = () => {
     }
   ];
 
-  const filteredBooks = activeCategory === 'all' 
-    ? sampleBooks 
-    : sampleBooks.filter(book => book.category === activeCategory);
+  const filtered = activeCategory === 'all' 
+    ? books
+    : books.filter(book => book.category === activeCategory);
 
   const sectionStyle = {
     background: 'linear-gradient(135deg, #1e88e5 0%, #1e88e5 50%, #ffffff 50%, #ffffff 100%)',
@@ -309,9 +330,9 @@ const BookCatalogueSection = () => {
 
           {/* Books Grid */}
           <div style={booksGridStyle}>
-            {filteredBooks.map((book, index) => (
+            {(loading ? sampleBooks : filtered).map((book, index) => (
               <div
-                key={book.id}
+                key={book.id || index}
                 style={{
                   ...bookCardStyle,
                   animationDelay: `${0.9 + index * 0.1}s`
@@ -330,7 +351,7 @@ const BookCatalogueSection = () => {
                   <h3 style={bookTitleStyle}>{book.title}</h3>
                   <p style={bookAuthorStyle}>By {book.author}</p>
                   <p style={bookDescriptionStyle}>{book.description}</p>
-                  <div style={bookPriceStyle}>{book.price}</div>
+                  {book.price && <div style={bookPriceStyle}>{book.price}</div>}
                   <button
                     style={orderButtonStyle}
                     onMouseOver={(e) => {

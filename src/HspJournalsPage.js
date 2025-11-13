@@ -96,7 +96,6 @@ const HspJournalsPage = () => {
             <p>Dr.R.Senthamil Selvan B.E,M.Tech(Communication Systems),M.Tech(CSE),Ph.D,MISTE,FIETE</p>
             <p>Tirupati,Andhra Pradesh,India</p>
             <p><strong>Email:</strong> <a href="mailto:editorhspjournal@gmail.com">editorhspjournal@gmail.com</a></p>
-            <p><strong>Contact:</strong> +91-9150450450</p>
           </section>
         );
       case 'indexing':

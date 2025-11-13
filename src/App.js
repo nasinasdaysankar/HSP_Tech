@@ -7,15 +7,14 @@ import ScrollingLogos from './ScrollingLogos';
 import DetailedServices from './DetailedServices';
 import BookCatalogueSection from './BookCatalogueSection';
 import DeliveryPolicySection from './DeliveryPolicySection';
-// --- 1. IMPORT YOUR NEW PAGE ---
 import HspJournalsPage from './HspJournalsPage'; 
-
 import Footer from './Footer';
 import AboutModal from './AboutModal';
 import KeepInTouchForm from './KeepInTouchForm';
+import AdminLogin from './AdminLogin';             // ⭐ ADD THIS
+import AdminDashboard from './AdminDashboard';     // ⭐ ADD THIS
 import './App.css';
 
-// This component groups all the sections you want to see on the main page.
 const HomePage = () => {
   return (
     <>
@@ -26,7 +25,6 @@ const HomePage = () => {
     </>
   );
 };
-
 
 function App() {
   const [isAboutModalOpen, setAboutModalOpen] = useState(false);
@@ -41,29 +39,35 @@ function App() {
   return (
     <div className="App">
       <Header onAboutClick={openAboutModal} />
-      
+
       <main>
         <Routes>
-          
-          {/* Path 1: The Home Page (URL: "/") */}
+
+          {/* MAIN HOME PAGE */}
           <Route path="/" element={<HomePage />} />
-          
-          {/* Path 2: The Delivery Policy Page (URL: "/hsp-books") */}
+
+          {/* BOOKS PAGE */}
           <Route path="/hsp-books" element={<DeliveryPolicySection />} />
 
-          {/* --- 2. ADD THE NEW ROUTE FOR YOUR JOURNALS PAGE --- */}
+          {/* JOURNALS PAGE */}
           <Route path="/hsp-journals" element={<HspJournalsPage />} />
-          
+
+          {/* ⭐ ADMIN LOGIN PAGE */}
+          <Route path="/admin" element={<AdminLogin />} />
+
+          {/* ⭐ ADMIN DASHBOARD PAGE */}
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+
         </Routes>
       </main>
-      
+
       <Footer />
 
-      {/* Modals */}
+      {/* MODALS */}
       {isAboutModalOpen && <AboutModal onClose={closeAboutModal} />}
       {isKeepInTouchOpen && <KeepInTouchForm onClose={closeKeepInTouch} />}
 
-      {/* The floating button */}
+      {/* FLOATING KEEP IN TOUCH BUTTON */}
       <button className="floating-keep-in-touch" onClick={openKeepInTouch}>
         Keep In Touch
       </button>

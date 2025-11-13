@@ -4,11 +4,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 const ServiceCard = ({ category, items, index, imageUrl }) => {
-  // --- THIS LINE IS NOW FIXED ---
-  const [isVisible, setIsVisible] = useState(false); 
+  const [isVisible, setIsVisible] = useState(false);
   const cardRef = useRef(null);
 
   useEffect(() => {
+    const node = cardRef.current; // FIXED: capture the node
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -19,13 +20,13 @@ const ServiceCard = ({ category, items, index, imageUrl }) => {
       { threshold: 0.1, rootMargin: '50px' }
     );
 
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
+    if (node) {
+      observer.observe(node);
     }
 
     return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
+      if (node) {
+        observer.unobserve(node); // FIXED: cleanup uses saved node
       }
     };
   }, []);
@@ -36,21 +37,20 @@ const ServiceCard = ({ category, items, index, imageUrl }) => {
       className={`service-split-card ${isVisible ? 'slide-rotate-in' : ''}`}
       style={{ transitionDelay: `${index * 200}ms` }}
     >
-      <img src={imageUrl} alt={`${category} image`} className="service-image" />
+      {/* FIXED: alt text - removed the word "image" */}
+      <img src={imageUrl} alt={category} className="service-image" />
+
       <h3>{category}</h3>
-      
+
       <ul>
         {items.map((item, itemIndex) => {
-          
-          // Check if item is an object
           if (typeof item === 'object' && item !== null) {
-            
-            // Case 1: It's an object with a 'path' (render a Link)
+            // Case 1: Object with path → Link
             if (item.path) {
               return (
                 <li key={itemIndex}>
-                  <Link 
-                    to={item.path} 
+                  <Link
+                    to={item.path}
                     className={item.highlight ? 'highlight-text' : ''}
                   >
                     {item.text}
@@ -58,8 +58,8 @@ const ServiceCard = ({ category, items, index, imageUrl }) => {
                 </li>
               );
             }
-            
-            // Case 2: It's an object without a 'path' (render a span)
+
+            // Case 2: Object without path → span
             return (
               <li key={itemIndex}>
                 <span className={item.highlight ? 'highlight-text' : ''}>
@@ -69,9 +69,8 @@ const ServiceCard = ({ category, items, index, imageUrl }) => {
             );
           }
 
-          // Case 3: It's just a string (render as is)
+          // Case 3: Plain string
           return <li key={itemIndex}>{item}</li>;
-          
         })}
       </ul>
     </div>

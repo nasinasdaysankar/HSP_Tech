@@ -140,15 +140,7 @@ const DeliveryPolicySection = () => {
     marginBottom: '2rem'
   };
 
-  const listStyle = {
-    paddingLeft: '1.5rem',
-    marginBottom: '1.5rem'
-  };
-
-  const listItemStyle = {
-    marginBottom: '0.8rem',
-    fontSize: '1.1rem'
-  };
+ 
 
   const emailLinkStyle = {
     color: '#1e88e5',

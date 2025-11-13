@@ -26,22 +26,26 @@ const BookCatalogueSection = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        const q = query(collection(db, 'books'), orderBy('title'));
-        const snapshot = await getDocs(q);
-        const items = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
-        setBooks(items);
-      } catch (e) {
-        console.warn('Falling back to sample books because Firestore read failed or is empty:', e);
-        setBooks(sampleBooks);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchBooks();
-  }, []);
+ useEffect(() => {
+  const fetchBooks = async () => {
+    try {
+      const q = query(collection(db, 'books'), orderBy('title'));
+      const snapshot = await getDocs(q);
+      const items = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+      setBooks(items);
+    } catch (e) {
+      console.warn('Falling back to sample books because Firestore read failed or is empty:', e);
+      setBooks(sampleBooks);
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchBooks();
+
+  // 🔥 FIX ESLINT WARNING
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
+
 
   const bookCategories = [
     { id: 'all', name: 'All Books', icon: '📚' },

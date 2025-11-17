@@ -14,13 +14,13 @@ exports.sendContactEmail = onDocumentCreated(
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "nasinauday2002@gmail.com",
+        user: "directorhspresearchacademy@gmail.com",
         pass: "ghup zyim txis wtsa",
       },
     });
 
     const mailOptions = {
-  from: '"HSP Research Academy" <nasinauday2002@gmail.com>',
+  from: '"HSP Research Academy" <directorhspresearchacademy@gmail.com>',
   to: "directorhspresearchacademy@gmail.com",
   subject: "New Contact Form Submission",
   html: `

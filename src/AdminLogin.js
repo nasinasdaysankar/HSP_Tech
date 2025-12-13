@@ -9,7 +9,7 @@ const AdminLogin = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    if (email === "admin@hsp.com" && password === "admin123") {
+    if (email === "hsptech@ac.in" && password === "Hsp@*12345") {
       localStorage.setItem("admin", "true");
       navigate("/admin-dashboard");
     } else {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { db, storage, serverTimestamp } from "./firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 
@@ -30,6 +30,15 @@ const AdminDashboard = () => {
 
     setIsUploading(true);
     try {
+      // 0. Duplicate check — block if same title already exists
+      const dupQuery = query(collection(db, "books"), where("title", "==", title.trim()));
+      const dupSnapshot = await getDocs(dupQuery);
+      if (!dupSnapshot.empty) {
+        alert(`⚠️ A book titled "${title}" already exists in the catalogue. Please use a unique title.`);
+        setIsUploading(false);
+        return;
+      }
+
       // 1. Upload Image to Firebase Storage
       const imageRef = ref(storage, `book_covers/${Date.now()}-${imageFile.name}`);
       await uploadBytes(imageRef, imageFile);
@@ -37,13 +46,13 @@ const AdminDashboard = () => {
 
       // 2. Add Book Metadata to Firestore
       await addDoc(collection(db, "books"), {
-        title,
-        author,
+        title: title.trim(),
+        author: author.trim(),
         category,
-        description,
+        description: description.trim(),
         price: price.startsWith('₹') ? price : `₹${price}`,
         image: downloadURL,
-        createdAt: new Date()
+        createdAt: serverTimestamp()
       });
 
       alert("Book uploaded successfully! 🎉");

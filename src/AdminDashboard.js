@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { db, storage } from "./firebase";
+import { db, storage, serverTimestamp } from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,9 @@ const AdminDashboard = () => {
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("research");
   const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
   const [imageFile, setImageFile] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleUpload = async (e) => {
     e.preventDefault();
@@ -21,21 +23,37 @@ const AdminDashboard = () => {
       return;
     }
 
-    const imageRef = ref(storage, `book_covers/${Date.now()}-${imageFile.name}`);
-    await uploadBytes(imageRef, imageFile);
-    const downloadURL = await getDownloadURL(imageRef);
+    if (!title || !author || !description || !price) {
+      alert("Please fill in all fields!");
+      return;
+    }
 
-    await addDoc(collection(db, "books"), {
-      title,
-      author,
-      category,
-      description,
-      image: downloadURL,
-      createdAt: new Date()
-    });
+    setIsUploading(true);
+    try {
+      // 1. Upload Image to Firebase Storage
+      const imageRef = ref(storage, `book_covers/${Date.now()}-${imageFile.name}`);
+      await uploadBytes(imageRef, imageFile);
+      const downloadURL = await getDownloadURL(imageRef);
 
-    alert("Book uploaded successfully!");
-    navigate("/");
+      // 2. Add Book Metadata to Firestore
+      await addDoc(collection(db, "books"), {
+        title,
+        author,
+        category,
+        description,
+        price: price.startsWith('₹') ? price : `₹${price}`,
+        image: downloadURL,
+        createdAt: new Date()
+      });
+
+      alert("Book uploaded successfully! 🎉");
+      navigate("/");
+    } catch (error) {
+      console.error("Upload error:", error);
+      alert("Error uploading book: " + error.message);
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   return (
@@ -45,62 +63,88 @@ const AdminDashboard = () => {
 
         <form style={styles.form} onSubmit={handleUpload}>
           <div style={styles.group}>
-            <label>Book Title</label>
+            <label style={styles.label}>Book Title</label>
             <input
               type="text"
               style={styles.input}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Enter book title"
+              required
             />
           </div>
 
           <div style={styles.group}>
-            <label>Author Name</label>
+            <label style={styles.label}>Author Name</label>
             <input
               type="text"
               style={styles.input}
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
               placeholder="Enter author name"
+              required
             />
           </div>
 
           <div style={styles.group}>
-            <label>Category</label>
+            <label style={styles.label}>Price (e.g., ₹499)</label>
+            <input
+              type="text"
+              style={styles.input}
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              placeholder="Enter price"
+              required
+            />
+          </div>
+
+          <div style={styles.group}>
+            <label style={styles.label}>Category</label>
             <select
               style={styles.select}
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
-              <option value="research">Research</option>
+              <option value="research">Research Methodology</option>
               <option value="academic">Academic Writing</option>
               <option value="publication">Publication Guide</option>
-              <option value="patents">Patents</option>
+              <option value="patents">Patent Filing</option>
             </select>
           </div>
 
           <div style={styles.group}>
-            <label>Book Description</label>
+            <label style={styles.label}>Book Description</label>
             <textarea
               style={styles.textarea}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Enter book description"
+              required
             ></textarea>
           </div>
 
           <div style={styles.group}>
-            <label>Book Cover Image</label>
+            <label style={styles.label}>Book Cover Image</label>
             <input
               type="file"
               style={styles.fileInput}
               accept="image/*"
               onChange={(e) => setImageFile(e.target.files[0])}
+              required
             />
           </div>
 
-          <button type="submit" style={styles.button}>Upload Book</button>
+          <button 
+            type="submit" 
+            style={{
+              ...styles.button,
+              opacity: isUploading ? 0.7 : 1,
+              cursor: isUploading ? "not-allowed" : "pointer"
+            }}
+            disabled={isUploading}
+          >
+            {isUploading ? "Uploading..." : "Upload Book"}
+          </button>
         </form>
       </div>
     </div>
@@ -149,6 +193,13 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     gap: "0.4rem",
+  },
+
+  label: {
+    fontSize: "0.95rem",
+    fontWeight: "600",
+    color: "#333",
+    marginBottom: "2px",
   },
 
   input: {

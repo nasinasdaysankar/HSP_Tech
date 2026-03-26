@@ -1,8 +1,29 @@
-import React, { useState } from 'react';
-import './HspJournalsPage.css'; // We will create this CSS file next
+import React, { useState, useEffect } from 'react';
+import { db } from './firebase';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import './HspJournalsPage.css';
 
 const HspJournalsPage = () => {
   const [activeTab, setActiveTab] = useState('home');
+  const [boardMembers, setBoardMembers] = useState([]);
+  const [loadingBoard, setLoadingBoard] = useState(false);
+
+  useEffect(() => {
+    if (activeTab !== 'editorial') return;
+    const fetchBoard = async () => {
+      setLoadingBoard(true);
+      try {
+        const q = query(collection(db, 'editorial_board'), orderBy('createdAt', 'asc'));
+        const snapshot = await getDocs(q);
+        setBoardMembers(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })));
+      } catch (e) {
+        console.warn('Could not load editorial board:', e);
+      } finally {
+        setLoadingBoard(false);
+      }
+    };
+    fetchBoard();
+  }, [activeTab]);
 
   const renderContent = () => {
     switch (activeTab) {
@@ -92,10 +113,43 @@ const HspJournalsPage = () => {
         return (
           <section id="editorial">
             <h2>Editorial Board</h2>
-            <h3>Editor in Chief</h3>
-            <p>Dr.R.Senthamil Selvan B.E,M.Tech(Communication Systems),M.Tech(CSE),Ph.D,MISTE,FIETE</p>
-            <p>Tirupati,Andhra Pradesh,India</p>
-            <p><strong>Email:</strong> <a href="mailto:editorhspjournal@gmail.com">editorhspjournal@gmail.com</a></p>
+            {loadingBoard ? (
+              <p style={{ color: '#555', padding: '1rem 0' }}>Loading editorial board...</p>
+            ) : boardMembers.length === 0 ? (
+              <div>
+                <h3>Editor in Chief</h3>
+                <p>Dr.R.Senthamil Selvan B.E,M.Tech(Communication Systems),M.Tech(CSE),Ph.D,MISTE,FIETE</p>
+                <p>Tirupati, Andhra Pradesh, India</p>
+                <p><strong>Email:</strong> <a href="mailto:editorhspjournal@gmail.com">editorhspjournal@gmail.com</a></p>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
+                {boardMembers.map((member) => (
+                  <div key={member.id} style={{
+                    padding: '1.2rem 1.5rem',
+                    borderRadius: '10px',
+                    background: '#f0f7ff',
+                    border: '1px solid #bbdefb',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '4px'
+                  }}>
+                    <span style={{
+                      fontSize: '0.72rem', fontWeight: '700', color: '#1565c0',
+                      background: '#dceeff', borderRadius: '20px', padding: '2px 10px',
+                      width: 'fit-content'
+                    }}>{member.role}</span>
+                    <strong style={{ fontSize: '1.05rem', color: '#0d47a1' }}>{member.name}</strong>
+                    <span style={{ color: '#444', fontSize: '0.9rem' }}>{member.affiliation}</span>
+                    {member.email && (
+                      <a href={`mailto:${member.email}`} style={{ color: '#1976d2', fontSize: '0.85rem' }}>
+                        {member.email}
+                      </a>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
         );
       case 'indexing':

@@ -4,63 +4,8 @@ import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 
 const BookCatalogueSection = () => {
   const [activeCategory, setActiveCategory] = useState('all');
-  const [isVisible, setIsVisible] = useState(false);
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { 
-        threshold: 0.1,
-        rootMargin: '50px' // Trigger slightly before it enters the viewport
-      }
-    );
-
-    const section = document.getElementById('books');
-    if (section) observer.observe(section);
-
-    // Fallback: Show content after a short delay regardless of intersection on mobile
-    const timeout = setTimeout(() => {
-      setIsVisible(true);
-    }, 2000);
-
-    return () => {
-      if (section) observer.unobserve(section);
-      clearTimeout(timeout);
-    };
-  }, []);
-
-  useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        const q = query(collection(db, 'books'), orderBy('title'));
-        const snapshot = await getDocs(q);
-        
-        if (snapshot.empty) {
-          console.log('No books found in Firestore, using sample books.');
-          setBooks(sampleBooks);
-        } else {
-          const items = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
-          setBooks(items);
-        }
-      } catch (e) {
-        console.warn('Falling back to sample books because Firestore read failed:', e);
-        setBooks(sampleBooks);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchBooks();
-
-    // 🔥 FIX ESLINT WARNING
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
 
   const bookCategories = [
     { id: 'all', name: 'All Books', icon: '📚' },
@@ -121,39 +66,46 @@ const BookCatalogueSection = () => {
     }
   ];
 
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const q = query(collection(db, 'books'), orderBy('title'));
+        const snapshot = await getDocs(q);
+        
+        if (snapshot.empty) {
+          console.log('No books found in Firestore, using sample books.');
+          setBooks(sampleBooks);
+        } else {
+          const items = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+          setBooks(items);
+        }
+      } catch (e) {
+        console.warn('Falling back to sample books because Firestore read failed:', e);
+        setBooks(sampleBooks);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBooks();
+  }, []);
+
   const filtered = activeCategory === 'all' 
     ? books
     : books.filter(book => book.category === activeCategory);
 
   const sectionStyle = {
-    background: 'linear-gradient(135deg, #1e88e5 0%, #1e88e5 50%, #ffffff 50%, #ffffff 100%)',
+    background: 'linear-gradient(135deg, #1e88e5 0%, #1e88e5 50%, #f8f9fa 50%, #f8f9fa 100%)',
     padding: '4rem 0',
     minHeight: '600px',
-    position: 'relative',
-    overflow: 'hidden'
-  };
-
-  const animatedBackgroundStyle = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    background: 'linear-gradient(135deg, #1e88e5 0%, #1e88e5 50%, #ffffff 50%, #ffffff 100%)',
-    transform: isVisible ? 'translateX(0)' : 'translateX(-100%)',
-    transition: 'transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-    zIndex: 1
-  };
-
-  const contentWrapperStyle = {
-    position: 'relative',
-    zIndex: 10 // Increased to ensure it's above the background
+    position: 'relative'
   };
 
   const containerStyle = {
     width: '90%',
     maxWidth: '1200px',
-    margin: '0 auto'
+    margin: '0 auto',
+    position: 'relative',
+    zIndex: 10
   };
 
   const titleStyle = {
@@ -162,22 +114,15 @@ const BookCatalogueSection = () => {
     textAlign: 'center',
     color: '#ffffff',
     marginBottom: '1rem',
-    lineHeight: '1.1',
-    opacity: 1, // Visible by default
-    transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-    transition: 'all 0.8s ease-out 0.1s'
+    lineHeight: '1.1'
   };
 
   const subtitleStyle = {
     textAlign: 'center',
     fontSize: '1.2rem',
     color: '#f0f8ff',
-    marginBottom: '3rem',
     maxWidth: '600px',
-    margin: '0 auto 3rem auto',
-    opacity: 1, // Visible by default
-    transform: isVisible ? 'translateY(0)' : 'translateY(15px)',
-    transition: 'all 0.8s ease-out 0.2s'
+    margin: '0 auto 3rem auto'
   };
 
   const filterBarStyle = {
@@ -185,10 +130,7 @@ const BookCatalogueSection = () => {
     justifyContent: 'center',
     flexWrap: 'wrap',
     gap: '1rem',
-    marginBottom: '3rem',
-    opacity: 1, // Visible by default
-    transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
-    transition: 'all 0.8s ease-out 0.3s'
+    marginBottom: '3rem'
   };
 
   const filterButtonStyle = (isActive) => ({
@@ -220,10 +162,7 @@ const BookCatalogueSection = () => {
     overflow: 'hidden',
     boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
     transition: 'transform 0.4s ease, box-shadow 0.4s ease',
-    cursor: 'pointer',
-    opacity: 1, // Visible by default
-    transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.98)',
-    animation: isVisible ? 'fadeInUp 0.6s ease-out forwards' : 'none'
+    cursor: 'pointer'
   };
 
   const bookImageStyle = {
@@ -232,9 +171,7 @@ const BookCatalogueSection = () => {
     objectFit: 'cover'
   };
 
-  const bookContentStyle = {
-    padding: '1.5rem'
-  };
+  const bookContentStyle = { padding: '1.5rem' };
 
   const bookTitleStyle = {
     fontSize: '1.3rem',
@@ -277,166 +214,71 @@ const BookCatalogueSection = () => {
     transition: 'background-color 0.3s ease'
   };
 
-  const bulkOrderStyle = {
-    textAlign: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    padding: '2rem',
-    borderRadius: '12px',
-    border: '2px solid #ffffff',
-    backdropFilter: 'blur(10px)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-    opacity: 1, // Visible by default
-    transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
-    transition: 'all 0.8s ease-out 0.5s'
-  };
-
-  const bulkOrderTitleStyle = {
-    fontSize: '1.5rem',
-    fontWeight: '700',
-    color: '#0d47a1',
-    marginBottom: '1rem'
-  };
-
-  const bulkOrderTextStyle = {
-    fontSize: '1.1rem',
-    color: '#555',
-    marginBottom: '1.5rem'
-  };
-
-  const emailLinkStyle = {
-    color: '#1e88e5',
-    textDecoration: 'none',
-    fontWeight: '600'
-  };
-
   return (
     <section id="books" style={sectionStyle}>
-      <div style={animatedBackgroundStyle}></div>
-      <div style={contentWrapperStyle}>
-        <div style={containerStyle}>
-          <h2 style={titleStyle}>Book Catalogue</h2>
-          <p style={subtitleStyle}>
-            Discover our comprehensive collection of academic and research books designed to enhance your scholarly journey
-          </p>
+      <div style={containerStyle}>
+        <h2 style={titleStyle}>Book Catalogue</h2>
+        <p style={subtitleStyle}>
+          Discover our comprehensive collection of academic and research books designed to enhance your scholarly journey
+        </p>
 
-          {/* Category Filter */}
-          <div style={filterBarStyle}>
-            {bookCategories.map(category => (
-              <button
-                key={category.id}
-                style={filterButtonStyle(activeCategory === category.id)}
-                onClick={() => setActiveCategory(category.id)}
-                onMouseOver={(e) => {
-                  if (activeCategory !== category.id) {
-                    e.target.style.backgroundColor = '#ffffff';
-                    e.target.style.color = '#1e88e5';
-                    e.target.style.transform = 'translateY(-2px)';
-                  }
-                }}
-                onMouseOut={(e) => {
-                  if (activeCategory !== category.id) {
-                    e.target.style.backgroundColor = 'transparent';
-                    e.target.style.color = '#ffffff';
-                    e.target.style.transform = 'translateY(0)';
-                  }
-                }}
-              >
-                <span>{category.icon}</span>
-                <span>{category.name}</span>
-              </button>
-            ))}
-          </div>
+        <div style={filterBarStyle}>
+          {bookCategories.map(category => (
+            <button
+              key={category.id}
+              style={filterButtonStyle(activeCategory === category.id)}
+              onClick={() => setActiveCategory(category.id)}
+            >
+              <span>{category.icon}</span>
+              <span>{category.name}</span>
+            </button>
+          ))}
+        </div>
 
-          {/* Books Grid */}
-          <div style={booksGridStyle}>
-            {(loading ? sampleBooks : filtered).map((book, index) => (
-              <div
-                key={book.id || index}
-                style={{
-                  ...bookCardStyle,
-                  animationDelay: `${0.9 + index * 0.1}s`
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-10px) scale(1.03)';
-                  e.currentTarget.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.2)';
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                  e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
-                }}
-              >
-                <img src={book.image} alt={book.title} style={bookImageStyle} />
-                <div style={bookContentStyle}>
-                  <h3 style={bookTitleStyle}>{book.title}</h3>
-                  <p style={bookAuthorStyle}>By {book.author}</p>
-                  <p style={bookDescriptionStyle}>{book.description}</p>
-                  {book.price && <div style={bookPriceStyle}>{book.price}</div>}
-                  <button
-                    style={orderButtonStyle}
-                    onMouseOver={(e) => {
-                      e.target.style.backgroundColor = '#0d47a1';
-                      e.target.style.transform = 'translateY(-2px)';
-                      e.target.style.boxShadow = '0 4px 15px rgba(13, 71, 161, 0.4)';
-                    }}
-                    onMouseOut={(e) => {
-                      e.target.style.backgroundColor = '#1e88e5';
-                      e.target.style.transform = 'translateY(0)';
-                      e.target.style.boxShadow = 'none';
-                    }}
-                    onClick={() => window.open('mailto:hspbookspublishinghouse@gmail.com?subject=Book Order - ' + book.title, '_blank')}
-                  >
-                    Order Now
-                  </button>
-                </div>
+        <div style={booksGridStyle}>
+          {(loading ? sampleBooks : filtered).map((book, index) => (
+            <div
+              key={book.id || index}
+              style={bookCardStyle}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'translateY(-10px)';
+                e.currentTarget.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.2)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+              }}
+            >
+              <img src={book.image} alt={book.title} style={bookImageStyle} />
+              <div style={bookContentStyle}>
+                <h3 style={bookTitleStyle}>{book.title}</h3>
+                <p style={bookAuthorStyle}>By {book.author}</p>
+                <p style={bookDescriptionStyle}>{book.description}</p>
+                {book.price && <div style={bookPriceStyle}>{book.price}</div>}
+                <button
+                  style={orderButtonStyle}
+                  onClick={() => window.open('mailto:hspbookspublishinghouse@gmail.com?subject=Book Order - ' + book.title, '_blank')}
+                >
+                  Order Now
+                </button>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
 
-          {/* Bulk Order Section */}
-          <div style={bulkOrderStyle}>
-            <h3 style={bulkOrderTitleStyle}>📦 Bulk Orders Available</h3>
-            <p style={bulkOrderTextStyle}>
-              Need multiple copies? We offer special pricing for bulk orders. 
-              Send us your book list and quantities for a custom quote.
-            </p>
-            <p style={bulkOrderTextStyle}>
-              Email us at{' '}
-              <a 
-                href="mailto:hspbookspublishinghouse@gmail.com?subject=BULK ORDER - Book List Request" 
-                style={emailLinkStyle}
-              >
-                hspbookspublishinghouse@gmail.com
-              </a>
-              {' '}with subject line "BULK ORDER - Book List"
-            </p>
-          </div>
+        <div style={{
+          textAlign: 'center',
+          backgroundColor: 'rgba(255, 255, 255, 0.95)',
+          padding: '2rem',
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
+        }}>
+          <h3 style={{ fontSize: '1.5rem', fontWeight: '700', color: '#0d47a1', marginBottom: '1rem' }}>📦 Bulk Orders Available</h3>
+          <p style={{ fontSize: '1.1rem', color: '#555' }}>
+            Email us at <a href="mailto:hspbookspublishinghouse@gmail.com" style={{ color: '#1e88e5', textDecoration: 'none', fontWeight: '600' }}>hspbookspublishinghouse@gmail.com</a>
+          </p>
         </div>
       </div>
-      
-      {/* Add CSS animations */}
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(50px) scale(0.9);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-        
-        @keyframes slideInDiagonal {
-          from {
-            transform: translate(-100px, -100px);
-            opacity: 0;
-          }
-          to {
-            transform: translate(0, 0);
-            opacity: 1;
-          }
-        }
-      `}</style>
     </section>
   );
 };

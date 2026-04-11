@@ -15,36 +15,51 @@ const BookCatalogueSection = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1 }
+      { 
+        threshold: 0.1,
+        rootMargin: '50px' // Trigger slightly before it enters the viewport
+      }
     );
 
     const section = document.getElementById('books');
     if (section) observer.observe(section);
 
+    // Fallback: Show content after a short delay regardless of intersection on mobile
+    const timeout = setTimeout(() => {
+      setIsVisible(true);
+    }, 2000);
+
     return () => {
       if (section) observer.unobserve(section);
+      clearTimeout(timeout);
     };
   }, []);
 
- useEffect(() => {
-  const fetchBooks = async () => {
-    try {
-      const q = query(collection(db, 'books'), orderBy('title'));
-      const snapshot = await getDocs(q);
-      const items = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
-      setBooks(items);
-    } catch (e) {
-      console.warn('Falling back to sample books because Firestore read failed or is empty:', e);
-      setBooks(sampleBooks);
-    } finally {
-      setLoading(false);
-    }
-  };
-  fetchBooks();
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const q = query(collection(db, 'books'), orderBy('title'));
+        const snapshot = await getDocs(q);
+        
+        if (snapshot.empty) {
+          console.log('No books found in Firestore, using sample books.');
+          setBooks(sampleBooks);
+        } else {
+          const items = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+          setBooks(items);
+        }
+      } catch (e) {
+        console.warn('Falling back to sample books because Firestore read failed:', e);
+        setBooks(sampleBooks);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBooks();
 
-  // 🔥 FIX ESLINT WARNING
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
+    // 🔥 FIX ESLINT WARNING
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
 
   const bookCategories = [
@@ -194,7 +209,7 @@ const BookCatalogueSection = () => {
 
   const booksGridStyle = {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
     gap: '2rem',
     marginBottom: '3rem'
   };

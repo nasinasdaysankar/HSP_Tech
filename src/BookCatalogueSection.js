@@ -147,7 +147,7 @@ const BookCatalogueSection = () => {
 
   const contentWrapperStyle = {
     position: 'relative',
-    zIndex: 2
+    zIndex: 10 // Increased to ensure it's above the background
   };
 
   const containerStyle = {
@@ -163,9 +163,9 @@ const BookCatalogueSection = () => {
     color: '#ffffff',
     marginBottom: '1rem',
     lineHeight: '1.1',
-    opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'translateY(0)' : 'translateY(50px)',
-    transition: 'all 0.8s ease-out 0.3s'
+    opacity: 1, // Visible by default
+    transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+    transition: 'all 0.8s ease-out 0.1s'
   };
 
   const subtitleStyle = {
@@ -175,9 +175,9 @@ const BookCatalogueSection = () => {
     marginBottom: '3rem',
     maxWidth: '600px',
     margin: '0 auto 3rem auto',
-    opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-    transition: 'all 0.8s ease-out 0.5s'
+    opacity: 1, // Visible by default
+    transform: isVisible ? 'translateY(0)' : 'translateY(15px)',
+    transition: 'all 0.8s ease-out 0.2s'
   };
 
   const filterBarStyle = {
@@ -186,9 +186,9 @@ const BookCatalogueSection = () => {
     flexWrap: 'wrap',
     gap: '1rem',
     marginBottom: '3rem',
-    opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-    transition: 'all 0.8s ease-out 0.7s'
+    opacity: 1, // Visible by default
+    transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+    transition: 'all 0.8s ease-out 0.3s'
   };
 
   const filterButtonStyle = (isActive) => ({
@@ -221,8 +221,8 @@ const BookCatalogueSection = () => {
     boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
     transition: 'transform 0.4s ease, box-shadow 0.4s ease',
     cursor: 'pointer',
-    opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(50px) scale(0.9)',
+    opacity: 1, // Visible by default
+    transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.98)',
     animation: isVisible ? 'fadeInUp 0.6s ease-out forwards' : 'none'
   };
 
@@ -285,9 +285,9 @@ const BookCatalogueSection = () => {
     border: '2px solid #ffffff',
     backdropFilter: 'blur(10px)',
     boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-    opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-    transition: 'all 0.8s ease-out 1.2s'
+    opacity: 1, // Visible by default
+    transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+    transition: 'all 0.8s ease-out 0.5s'
   };
 
   const bulkOrderTitleStyle = {

@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const DeliveryPolicySection = () => {
   const [activeTab, setActiveTab] = useState('delivery');
-
-  // ... (all your styles and component logic from the code you sent) ...
-  // ... (I'm skipping pasting all 300 lines of styles here for brevity) ...
 
   const sectionStyle = {
     background: '#f8f9fa',

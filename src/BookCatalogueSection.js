@@ -73,14 +73,12 @@ const BookCatalogueSection = () => {
         const snapshot = await getDocs(q);
         
         if (snapshot.empty) {
-          console.log('No books found in Firestore, using sample books.');
           setBooks(sampleBooks);
         } else {
           const items = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
           setBooks(items);
         }
       } catch (e) {
-        console.warn('Falling back to sample books because Firestore read failed:', e);
         setBooks(sampleBooks);
       } finally {
         setLoading(false);
@@ -94,33 +92,30 @@ const BookCatalogueSection = () => {
     : books.filter(book => book.category === activeCategory);
 
   const sectionStyle = {
-    background: 'linear-gradient(135deg, #1e88e5 0%, #1e88e5 50%, #f8f9fa 50%, #f8f9fa 100%)',
+    background: '#ffffff', // Removed blue background gradient
     padding: '4rem 0',
-    minHeight: '600px',
+    minHeight: '400px',
     position: 'relative'
   };
 
   const containerStyle = {
     width: '90%',
     maxWidth: '1200px',
-    margin: '0 auto',
-    position: 'relative',
-    zIndex: 10
+    margin: '0 auto'
   };
 
   const titleStyle = {
-    fontSize: 'clamp(2.5rem, 8vw, 4rem)',
-    fontWeight: '900',
+    fontSize: 'clamp(2rem, 6vw, 3rem)',
+    fontWeight: '800',
     textAlign: 'center',
-    color: '#ffffff',
-    marginBottom: '1rem',
-    lineHeight: '1.1'
+    color: '#0d47a1', // Dark blue text
+    marginBottom: '1rem'
   };
 
   const subtitleStyle = {
     textAlign: 'center',
-    fontSize: '1.2rem',
-    color: '#f0f8ff',
+    fontSize: '1.1rem',
+    color: '#666', // Grey text
     maxWidth: '600px',
     margin: '0 auto 3rem auto'
   };
@@ -129,24 +124,22 @@ const BookCatalogueSection = () => {
     display: 'flex',
     justifyContent: 'center',
     flexWrap: 'wrap',
-    gap: '1rem',
+    gap: '0.75rem',
     marginBottom: '3rem'
   };
 
   const filterButtonStyle = (isActive) => ({
-    padding: '0.8rem 1.5rem',
-    border: '2px solid #ffffff',
+    padding: '0.6rem 1.2rem',
+    border: '2px solid #1e88e5',
     borderRadius: '25px',
-    backgroundColor: isActive ? '#ffffff' : 'transparent',
-    color: isActive ? '#1e88e5' : '#ffffff',
+    backgroundColor: isActive ? '#1e88e5' : 'transparent',
+    color: isActive ? '#ffffff' : '#1e88e5',
     cursor: 'pointer',
-    transition: 'all 0.3s ease',
-    fontSize: '1rem',
+    fontSize: '0.9rem',
     fontWeight: '600',
     display: 'flex',
     alignItems: 'center',
-    gap: '0.5rem',
-    boxShadow: isActive ? '0 4px 15px rgba(255, 255, 255, 0.3)' : 'none'
+    gap: '0.4rem'
   });
 
   const booksGridStyle = {
@@ -160,9 +153,8 @@ const BookCatalogueSection = () => {
     backgroundColor: '#ffffff',
     borderRadius: '12px',
     overflow: 'hidden',
-    boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
-    transition: 'transform 0.4s ease, box-shadow 0.4s ease',
-    cursor: 'pointer'
+    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
+    border: '1px solid #eee'
   };
 
   const bookImageStyle = {
@@ -174,11 +166,10 @@ const BookCatalogueSection = () => {
   const bookContentStyle = { padding: '1.5rem' };
 
   const bookTitleStyle = {
-    fontSize: '1.3rem',
+    fontSize: '1.2rem',
     fontWeight: '700',
     color: '#0d47a1',
-    marginBottom: '0.5rem',
-    lineHeight: '1.3'
+    marginBottom: '0.5rem'
   };
 
   const bookAuthorStyle = {
@@ -188,30 +179,22 @@ const BookCatalogueSection = () => {
   };
 
   const bookDescriptionStyle = {
-    fontSize: '0.95rem',
+    fontSize: '0.9rem',
     color: '#555',
-    lineHeight: '1.5',
-    marginBottom: '1rem'
-  };
-
-  const bookPriceStyle = {
-    fontSize: '1.4rem',
-    fontWeight: '700',
-    color: '#1e88e5',
+    lineHeight: '1.4',
     marginBottom: '1rem'
   };
 
   const orderButtonStyle = {
     width: '100%',
-    padding: '0.8rem 1rem',
+    padding: '0.75rem',
     backgroundColor: '#1e88e5',
     color: '#fff',
     border: 'none',
     borderRadius: '8px',
-    fontSize: '1rem',
+    fontSize: '0.95rem',
     fontWeight: '600',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s ease'
+    cursor: 'pointer'
   };
 
   return (
@@ -219,7 +202,7 @@ const BookCatalogueSection = () => {
       <div style={containerStyle}>
         <h2 style={titleStyle}>Book Catalogue</h2>
         <p style={subtitleStyle}>
-          Discover our comprehensive collection of academic and research books designed to enhance your scholarly journey
+          Discover our comprehensive collection of academic and research books.
         </p>
 
         <div style={filterBarStyle}>
@@ -237,24 +220,13 @@ const BookCatalogueSection = () => {
 
         <div style={booksGridStyle}>
           {(loading ? sampleBooks : filtered).map((book, index) => (
-            <div
-              key={book.id || index}
-              style={bookCardStyle}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-10px)';
-                e.currentTarget.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.2)';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
-              }}
-            >
+            <div key={book.id || index} style={bookCardStyle}>
               <img src={book.image} alt={book.title} style={bookImageStyle} />
               <div style={bookContentStyle}>
                 <h3 style={bookTitleStyle}>{book.title}</h3>
                 <p style={bookAuthorStyle}>By {book.author}</p>
                 <p style={bookDescriptionStyle}>{book.description}</p>
-                {book.price && <div style={bookPriceStyle}>{book.price}</div>}
+                {book.price && <div style={{ fontWeight: 'bold', color: '#1e88e5', marginBottom: '1rem' }}>{book.price}</div>}
                 <button
                   style={orderButtonStyle}
                   onClick={() => window.open('mailto:hspbookspublishinghouse@gmail.com?subject=Book Order - ' + book.title, '_blank')}
@@ -268,14 +240,13 @@ const BookCatalogueSection = () => {
 
         <div style={{
           textAlign: 'center',
-          backgroundColor: 'rgba(255, 255, 255, 0.95)',
           padding: '2rem',
-          borderRadius: '12px',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
+          backgroundColor: '#f8f9fa',
+          borderRadius: '12px'
         }}>
-          <h3 style={{ fontSize: '1.5rem', fontWeight: '700', color: '#0d47a1', marginBottom: '1rem' }}>📦 Bulk Orders Available</h3>
-          <p style={{ fontSize: '1.1rem', color: '#555' }}>
-            Email us at <a href="mailto:hspbookspublishinghouse@gmail.com" style={{ color: '#1e88e5', textDecoration: 'none', fontWeight: '600' }}>hspbookspublishinghouse@gmail.com</a>
+          <h3 style={{ color: '#0d47a1', marginBottom: '0.5rem' }}>Bulk Orders Available</h3>
+          <p style={{ color: '#555' }}>
+            Email: <a href="mailto:hspbookspublishinghouse@gmail.com" style={{ color: '#1e88e5', fontWeight: 'bold' }}>hspbookspublishinghouse@gmail.com</a>
           </p>
         </div>
       </div>

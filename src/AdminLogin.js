@@ -107,7 +107,7 @@ const styles = {
   input: {
     padding: "14px",
     borderRadius: "10px",
-    border: "1px solid #90caf9",
+    border: "1px solid #ddd",
     fontSize: "1rem",
     outline: "none",
   },

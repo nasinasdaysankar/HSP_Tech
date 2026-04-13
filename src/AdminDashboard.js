@@ -279,11 +279,11 @@ const styles = {
   },
   sectionTitle: {
     fontSize: "1.25rem", fontWeight: "700", color: "#111",
-    marginBottom: "1.2rem", borderBottom: "2px solid #bbdefb", paddingBottom: "0.5rem",
+    marginBottom: "1.2rem", borderBottom: "2px solid #ddd", paddingBottom: "0.5rem",
   },
   tabBar: {
     display: "flex", gap: "1rem", marginBottom: "2rem",
-    borderBottom: "2px solid #e3f2fd", paddingBottom: "0",
+    borderBottom: "2px solid #eee", paddingBottom: "0",
   },
   tabBtn: {
     padding: "0.7rem 1.5rem", border: "none", background: "transparent",

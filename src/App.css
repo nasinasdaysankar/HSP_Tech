@@ -17,7 +17,7 @@ body {
 }
 
 .highlight-text {
-  color: #1e88e5;
+  color: #222;
   font-weight: 600;
 }
 
@@ -55,7 +55,7 @@ body {
 .header .logo a {
   font-weight: bold;
   font-size: 1.5rem;
-  color: #0d47a1;
+  color: #111;
   text-decoration: none;
 }
 
@@ -78,7 +78,7 @@ body {
 }
 
 .header nav a:hover, .nav-button:hover {
-  color: #1e88e5;
+  color: #333;
 }
 
 .nav-button {
@@ -90,9 +90,7 @@ body {
 
 /* --- Hero Section Styles --- */
 .hero-section-fullscreen {
-  background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2029&auto=format&fit=crop');
-  background-size: cover;
-  background-position: center;
+  background-color: #f8f9fa;
   margin-top: -6.5rem;
   padding-top: 8rem;
   box-sizing: border-box;
@@ -101,15 +99,14 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  color: white;
+  color: #333;
   overflow: hidden;
-  position: relative; /* Ensure relative positioning for absolute children */
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.65);
+  background-color: rgba(255, 255, 255, 0.8);
   z-index: 1;
 }
 
@@ -125,16 +122,17 @@ body {
 
 .hero-headline {
   font-size: clamp(2.5rem, 5vw, 3.5rem);
-  font-weight: 400;
+  font-weight: 700;
   margin-bottom: 1rem;
   line-height: 1.2;
+  color: #222;
   animation: slideUpFadeIn 1s ease-out forwards;
 }
 
 .hero-subheadline {
   font-size: clamp(1rem, 3vw, 1.2rem);
   margin-bottom: 2.5rem;
-  opacity: 0;
+  color: #555;
   animation: slideUpFadeIn 1s ease-out 0.5s forwards;
 }
 
@@ -143,8 +141,7 @@ body {
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 1rem;
-  margin-bottom: 1rem; /* Reduced margin since stats are at bottom */
-  opacity: 0;
+  margin-bottom: 1rem;
   animation: slideUpFadeIn 1s ease-out 1s forwards;
 }
 
@@ -159,9 +156,9 @@ body {
 }
 
 .hero-button.primary {
-  background-color: #ffffff;
-  border-color: #ffffff;
-  color: #0d47a1;
+  background-color: #222;
+  border-color: #222;
+  color: #ffffff;
 }
 
 .hero-button.primary:hover {
@@ -170,13 +167,13 @@ body {
 }
 
 .hero-button.secondary {
-  border-color: #ffffff;
-  color: #0d47a1;
+  border-color: #222;
+  color: #222;
 }
 
 .hero-button.secondary:hover {
-  background-color: #ffffff;
-  color: #0d47a1;
+  background-color: #222;
+  color: #ffffff;
 }
 
 .mountain-image-shape {
@@ -204,7 +201,7 @@ body {
   width: 55%; /* Match hero-content width */
   z-index: 4; /* Above overlay but below content */
   padding: 0 5%;
-  color: #ffffff;
+  color: #222;
   transition: opacity 0.3s ease;
 }
 
@@ -363,7 +360,7 @@ body {
   bottom: 2rem;
   right: 2rem;
   z-index: 1050;
-  background-color: #1e88e5;
+  background-color: #333;
   color: #ffffff;
   font-size: 1rem;
   font-weight: 600;
@@ -376,7 +373,7 @@ body {
 }
 
 .floating-keep-in-touch:hover {
-  background-color: #0d47a1;
+  background-color: #111;
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
@@ -458,7 +455,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background-color: rgba(10, 10, 25, 0.88);
+  background-color: #f8f9fa;
   z-index: -1;
 }
 
@@ -472,7 +469,7 @@ body {
   font-weight: 900;
   line-height: 0.9;
   text-align: left;
-  color: #ffffff;
+  color: #222;
   opacity: 0.9;
   margin: 0;
 }
@@ -483,7 +480,7 @@ body {
   max-width: 450px;
   font-size: 1.1rem;
   font-weight: 500;
-  color: #1e88e5;
+  color: #555;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
   position: relative;
   z-index: 6;
@@ -509,7 +506,7 @@ body {
   background-color: #f8f9fa;
   padding: 1.5rem;
   border-radius: 8px;
-  border-left: 5px solid #1e88e5;
+  border-left: 5px solid #333;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   position: relative;
   opacity: 0;
@@ -539,7 +536,7 @@ body {
 
 .service-split-card h3 {
   font-size: 1.3rem;
-  color: #0d47a1;
+  color: #111;
   margin-top: 0;
 }
 
@@ -559,7 +556,7 @@ body {
 
 .service-split-card li::before {
   content: '✓';
-  color: #1e88e5;
+  color: #333;
   position: absolute;
   left: 0;
 }
@@ -650,7 +647,7 @@ body {
 
 .modal-body h2 {
   font-size: 2.2rem;
-  color: #0d47a1;
+  color: #111;
   margin: 0 0 1rem 0;
   text-align: center;
 }
@@ -664,12 +661,12 @@ body {
 
 .modal-body .chairman-message {
   background-color: #f4f7f6;
-  border-left: 4px solid #1e88e5;
+  border-left: 4px solid #333;
   padding: 1.5rem;
   border-radius: 8px;
 }
 
-.modal-body .chairman-message h3 { margin-top: 0; color: #0d47a1; }
+.modal-body .chairman-message h3 { margin-top: 0; color: #111; }
 .modal-body .chairman-message p { font-style: italic; margin-bottom: 0; color: #444; }
 
 /* --- Keep In Touch Form --- */
@@ -711,7 +708,7 @@ body {
 .form-group select option { background-color: #2a2a3c; color: #ffffff; }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
   outline: none;
-  border-color: #1e88e5;
+  border-color: #333;
   box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.2);
 }
 .form-group select {
@@ -728,11 +725,11 @@ body {
 
 .login-button {
   width: 100%; padding: 1rem; border: none; border-radius: 8px;
-  background-color: #1e88e5; color: #fff; font-size: 1.1rem;
+  background-color: #333; color: #fff; font-size: 1.1rem;
   font-weight: 600; cursor: pointer; transition: all 0.3s ease;
 }
 
-.login-button:hover { background-color: #0d47a1; transform: translateY(-3px); }
+.login-button:hover { background-color: #111; transform: translateY(-3px); }
 
 /* --- Footer --- */
 .footer {
@@ -749,21 +746,21 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background-color: rgba(10, 10, 25, 0.92);
+  background-color: #f8f9fa;
   z-index: -1;
 }
 
 .admin-button {
   padding: 6px 12px;
   border-radius: 6px;
-  background-color: #1e88e5;
+  background-color: #333;
   color: white !important;
   font-weight: 600;
   transition: 0.3s;
 }
 
 .admin-button:hover {
-  background-color: #0d47a1;
+  background-color: #111;
   transform: translateY(-2px);
   box-shadow: 0 3px 10px rgba(0,0,0,0.2);
 }
@@ -780,7 +777,7 @@ body {
   color: #fff;
   font-size: 1.2rem;
   margin-bottom: 1.5rem;
-  border-bottom: 2px solid #1e88e5;
+  border-bottom: 2px solid #333;
   padding-bottom: 0.5rem;
   display: inline-block;
 }
@@ -901,7 +898,7 @@ body {
 }
 
 .mission h3, .vision h3, .values h3 {
-  color: #0d47a1;
+  color: #111;
   margin-bottom: 0.5rem;
 }
 
@@ -1003,11 +1000,11 @@ body {
 }
 
 .value-icon.mission-icon { background-color: #28a745; }
-.value-icon.vision-icon { background-color: #1e88e5; }
-.value-icon.values-icon { background-color: #6f42c1; }
+.value-icon.vision-icon { background-color: #333; }
+.value-icon.values-icon { background-color: #444; }
 
 .value-item h3 {
-  color: #0d47a1;
+  color: #111;
   font-size: 1.4rem;
   margin-bottom: 0.75rem;
 }

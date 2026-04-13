@@ -223,7 +223,7 @@ const AdminDashboard = () => {
                   onChange={(e) => setMemberEmail(e.target.value)} placeholder="e.g. editor@university.edu" />
               </div>
 
-              <button type="submit" style={{ ...styles.button, background: "#1565c0", opacity: isSavingMember ? 0.7 : 1, cursor: isSavingMember ? "not-allowed" : "pointer" }} disabled={isSavingMember}>
+              <button type="submit" style={{ ...styles.button, background: "#222", opacity: isSavingMember ? 0.7 : 1, cursor: isSavingMember ? "not-allowed" : "pointer" }} disabled={isSavingMember}>
                 {isSavingMember ? "Saving..." : "➕ Add Member"}
               </button>
             </form>
@@ -243,7 +243,7 @@ const AdminDashboard = () => {
                     <div key={m.id} style={styles.memberCard}>
                       <div style={styles.memberInfo}>
                         <span style={styles.roleBadge}>{m.role}</span>
-                        <strong style={{ color: "#0d47a1" }}>{m.name}</strong>
+                        <strong style={{ color: "#111" }}>{m.name}</strong>
                         <span style={{ color: "#555", fontSize: "0.85rem" }}>{m.affiliation}</span>
                         {m.email && <span style={{ color: "#888", fontSize: "0.8rem" }}>{m.email}</span>}
                       </div>
@@ -265,7 +265,7 @@ export default AdminDashboard;
 const styles = {
   pageWrapper: {
     width: "100%", minHeight: "100vh",
-    background: "linear-gradient(135deg, #0d47a1, #1976d2, #42a5f5)",
+    background: "linear-gradient(135deg, #111, #333, #555)",
     display: "flex", justifyContent: "center", alignItems: "flex-start", padding: "3rem 1rem",
   },
   card: {
@@ -275,10 +275,10 @@ const styles = {
   },
   pageTitle: {
     textAlign: "center", fontSize: "1.8rem", fontWeight: "800",
-    color: "#0d47a1", marginBottom: "1.5rem",
+    color: "#111", marginBottom: "1.5rem",
   },
   sectionTitle: {
-    fontSize: "1.25rem", fontWeight: "700", color: "#0d47a1",
+    fontSize: "1.25rem", fontWeight: "700", color: "#111",
     marginBottom: "1.2rem", borderBottom: "2px solid #bbdefb", paddingBottom: "0.5rem",
   },
   tabBar: {
@@ -290,17 +290,17 @@ const styles = {
     fontSize: "1rem", fontWeight: "600", color: "#888", cursor: "pointer",
     borderBottom: "3px solid transparent", marginBottom: "-2px", transition: "all 0.2s",
   },
-  tabActive: { color: "#0d47a1", borderBottom: "3px solid #0d47a1" },
+  tabActive: { color: "#111", borderBottom: "3px solid #111" },
   form: { display: "flex", flexDirection: "column", gap: "1.2rem" },
   formRow: { display: "flex", gap: "1rem", flexWrap: "wrap" },
   group: { display: "flex", flexDirection: "column", gap: "0.4rem" },
   label: { fontSize: "0.9rem", fontWeight: "600", color: "#333" },
-  input: { padding: "11px", borderRadius: "8px", border: "1px solid #90caf9", fontSize: "1rem", outline: "none" },
-  select: { padding: "11px", borderRadius: "8px", border: "1px solid #90caf9", fontSize: "1rem", outline: "none" },
-  textarea: { padding: "11px", borderRadius: "8px", border: "1px solid #90caf9", fontSize: "1rem", minHeight: "110px", resize: "vertical" },
+  input: { padding: "11px", borderRadius: "8px", border: "1px solid #ddd", fontSize: "1rem", outline: "none" },
+  select: { padding: "11px", borderRadius: "8px", border: "1px solid #ddd", fontSize: "1rem", outline: "none" },
+  textarea: { padding: "11px", borderRadius: "8px", border: "1px solid #ddd", fontSize: "1rem", minHeight: "110px", resize: "vertical" },
   fileInput: { padding: "8px", fontSize: "1rem" },
   button: {
-    padding: "13px", background: "#0d47a1", color: "white",
+    padding: "13px", background: "#222", color: "white",
     fontSize: "1.1rem", fontWeight: "700", border: "none",
     borderRadius: "10px", cursor: "pointer", transition: "0.3s",
   },
@@ -308,12 +308,12 @@ const styles = {
   memberCard: {
     display: "flex", justifyContent: "space-between", alignItems: "center",
     padding: "0.9rem 1rem", borderRadius: "10px",
-    background: "#f0f7ff", border: "1px solid #bbdefb",
+    background: "#f8f9fa", border: "1px solid #ddd",
   },
   memberInfo: { display: "flex", flexDirection: "column", gap: "2px" },
   roleBadge: {
-    fontSize: "0.72rem", fontWeight: "700", color: "#1565c0",
-    background: "#e3f2fd", borderRadius: "20px", padding: "2px 10px",
+    fontSize: "0.72rem", fontWeight: "700", color: "#222",
+    background: "#eee", borderRadius: "20px", padding: "2px 10px",
     width: "fit-content", marginBottom: "2px",
   },
   deleteBtn: {

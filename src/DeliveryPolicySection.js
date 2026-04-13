@@ -26,7 +26,7 @@ const DeliveryPolicySection = () => {
   // ... (I'm skipping pasting all 300 lines of styles here for brevity) ...
 
   const sectionStyle = {
-    background: 'linear-gradient(225deg, #ffffff 0%, #ffffff 50%, #6f42c1 50%, #6f42c1 100%)',
+    background: '#f8f9fa',
     padding: '4rem 0',
     minHeight: '600px',
     position: 'relative',
@@ -39,9 +39,7 @@ const DeliveryPolicySection = () => {
     left: 0,
     right: 0,
     bottom: 0,
-    background: 'linear-gradient(225deg, #ffffff 0%, #ffffff 50%, #6f42c1 50%, #6f42c1 100%)',
-    transform: isVisible ? 'translateX(0) rotate(0deg)' : 'translateX(100%) rotate(5deg)',
-    transition: 'transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+    background: '#ffffff',
     zIndex: 1
   };
 
@@ -60,11 +58,11 @@ const DeliveryPolicySection = () => {
     fontSize: 'clamp(2.5rem, 8vw, 4rem)',
     fontWeight: '900',
     textAlign: 'center',
-    color: '#0d47a1',
+    color: '#111',
     marginBottom: '1rem',
     lineHeight: '1.1',
-    opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(-50px) scale(0.8)',
+    opacity: 1,
+    transform: 'translateY(0) scale(1)',
     transition: 'all 0.8s ease-out 0.3s'
   };
 
@@ -75,8 +73,8 @@ const DeliveryPolicySection = () => {
     marginBottom: '3rem',
     maxWidth: '600px',
     margin: '0 auto 3rem auto',
-    opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
+    opacity: 1,
+    transform: 'translateY(0)',
     transition: 'all 0.8s ease-out 0.5s'
   };
 
@@ -86,22 +84,22 @@ const DeliveryPolicySection = () => {
     flexWrap: 'wrap',
     gap: '1rem',
     marginBottom: '3rem',
-    opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
+    opacity: 1,
+    transform: 'translateY(0)',
     transition: 'all 0.8s ease-out 0.7s'
   };
 
   const tabButtonStyle = (isActive) => ({
     padding: '1rem 2rem',
-    border: '2px solid #6f42c1',
+    border: '2px solid #222',
     borderRadius: '8px',
-    backgroundColor: isActive ? '#6f42c1' : 'rgba(255, 255, 255, 0.9)',
-    color: isActive ? '#fff' : '#6f42c1',
+    backgroundColor: isActive ? '#222' : 'rgba(255, 255, 255, 0.9)',
+    color: isActive ? '#fff' : '#222',
     cursor: 'pointer',
     transition: 'all 0.4s ease',
     fontSize: '1.1rem',
     fontWeight: '600',
-    boxShadow: isActive ? '0 8px 25px rgba(111, 66, 193, 0.3)' : '0 4px 15px rgba(0, 0, 0, 0.1)',
+    boxShadow: isActive ? '0 8px 25px rgba(0, 0, 0, 0.1)' : '0 4px 15px rgba(0, 0, 0, 0.1)',
     backdropFilter: 'blur(10px)'
   });
 
@@ -113,15 +111,15 @@ const DeliveryPolicySection = () => {
     lineHeight: '1.7',
     backdropFilter: 'blur(10px)',
     border: '1px solid rgba(255, 255, 255, 0.2)',
-    opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(50px) scale(0.95)',
+    opacity: 1,
+    transform: 'translateY(0) scale(1)',
     transition: 'all 0.8s ease-out 0.9s'
   };
 
   const questionStyle = {
     fontSize: '1.3rem',
     fontWeight: '700',
-    color: '#0d47a1',
+    color: '#111',
     marginTop: '2rem',
     marginBottom: '1rem'
   };
@@ -133,17 +131,17 @@ const DeliveryPolicySection = () => {
   };
 
   const highlightStyle = {
-    backgroundColor: '#e3f2fd',
+    backgroundColor: '#f8f9fa',
     padding: '1.5rem',
     borderRadius: '8px',
-    border: '1px solid #1e88e5',
+    border: '1px solid #ddd',
     marginBottom: '2rem'
   };
 
  
 
   const emailLinkStyle = {
-    color: '#1e88e5',
+    color: '#333',
     textDecoration: 'none',
     fontWeight: '600'
   };
@@ -153,7 +151,7 @@ const DeliveryPolicySection = () => {
     padding: '1rem',
     borderRadius: '6px',
     marginBottom: '0.8rem',
-    borderLeft: '4px solid #1e88e5',
+    borderLeft: '4px solid #333',
     transition: 'transform 0.3s ease, boxShadow 0.3s ease'
   };
 
@@ -324,14 +322,14 @@ const DeliveryPolicySection = () => {
               onClick={() => setActiveTab('delivery')}
               onMouseOver={(e) => {
                 if (activeTab !== 'delivery') {
-                  e.target.style.backgroundColor = '#1e88e5';
+                  e.target.style.backgroundColor = '#111';
                   e.target.style.color = '#fff';
                 }
               }}
               onMouseOut={(e) => {
                 if (activeTab !== 'delivery') {
                   e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-                  e.target.style.color = '#6f42c1';
+                  e.target.style.color = '#333';
                 }
               }}
             >
@@ -342,14 +340,14 @@ const DeliveryPolicySection = () => {
               onClick={() => setActiveTab('payment')}
               onMouseOver={(e) => {
                 if (activeTab !== 'payment') {
-                  e.target.style.backgroundColor = '#1e88e5';
+                  e.target.style.backgroundColor = '#111';
                   e.target.style.color = '#fff';
                 }
               }}
               onMouseOut={(e) => {
                 if (activeTab !== 'payment') {
                   e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-                  e.target.style.color = '#6f42c1';
+                  e.target.style.color = '#333';
                 }
               }}
             >
@@ -360,14 +358,14 @@ const DeliveryPolicySection = () => {
               onClick={() => setActiveTab('faq')}
               onMouseOver={(e) => {
                 if (activeTab !== 'faq') {
-                  e.target.style.backgroundColor = '#1e88e5';
+                  e.target.style.backgroundColor = '#111';
                   e.target.style.color = '#fff';
                 }
               }}
               onMouseOut={(e) => {
                 if (activeTab !== 'faq') {
                   e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-                  e.target.style.color = '#6f42c1';
+                  e.target.style.color = '#333';
                 }
               }}
             >

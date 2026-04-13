@@ -128,21 +128,21 @@ const HspJournalsPage = () => {
                   <div key={member.id} style={{
                     padding: '1.2rem 1.5rem',
                     borderRadius: '10px',
-                    background: '#f0f7ff',
-                    border: '1px solid #bbdefb',
+                    background: '#f8f9fa',
+                    border: '1px solid #ddd',
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '4px'
                   }}>
                     <span style={{
-                      fontSize: '0.72rem', fontWeight: '700', color: '#1565c0',
-                      background: '#dceeff', borderRadius: '20px', padding: '2px 10px',
+                      fontSize: '0.72rem', fontWeight: '700', color: '#222',
+                      background: '#eee', borderRadius: '20px', padding: '2px 10px',
                       width: 'fit-content'
                     }}>{member.role}</span>
-                    <strong style={{ fontSize: '1.05rem', color: '#0d47a1' }}>{member.name}</strong>
+                    <strong style={{ fontSize: '1.05rem', color: '#111' }}>{member.name}</strong>
                     <span style={{ color: '#444', fontSize: '0.9rem' }}>{member.affiliation}</span>
                     {member.email && (
-                      <a href={`mailto:${member.email}`} style={{ color: '#1976d2', fontSize: '0.85rem' }}>
+                      <a href={`mailto:${member.email}`} style={{ color: '#333', fontSize: '0.85rem' }}>
                         {member.email}
                       </a>
                     )}

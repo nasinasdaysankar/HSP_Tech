@@ -61,7 +61,7 @@ const styles = {
   pageWrapper: {
     width: "100%",
     minHeight: "100vh",
-    background: "linear-gradient(135deg, #0d47a1, #1976d2, #42a5f5)",
+    background: "linear-gradient(135deg, #111, #333, #555)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -82,7 +82,7 @@ const styles = {
     textAlign: "center",
     fontSize: "2rem",
     fontWeight: "700",
-    color: "#0d47a1",
+    color: "#111",
     marginBottom: "2rem",
   },
 
@@ -101,7 +101,7 @@ const styles = {
   label: {
     fontSize: "1rem",
     fontWeight: "600",
-    color: "#0d47a1",
+    color: "#111",
   },
 
   input: {
@@ -115,7 +115,7 @@ const styles = {
   button: {
     marginTop: "1rem",
     padding: "14px",
-    background: "#0d47a1",
+    background: "#222",
     color: "white",
     fontSize: "1.2rem",
     fontWeight: "700",

@@ -56,7 +56,7 @@ const AboutModal = ({ onClose }) => {
     },
     chairmanMessage: {
       backgroundColor: '#f4f7f6',
-      borderLeft: '4px solid #1e88e5',
+      borderLeft: '4px solid #111',
       padding: '1.5rem',
       borderRadius: '8px',
       margin: '2rem 0'
@@ -88,13 +88,13 @@ const AboutModal = ({ onClose }) => {
       backgroundColor: '#28a745'
     },
     visionIcon: {
-      backgroundColor: '#1e88e5'
+      backgroundColor: '#333'
     },
     valuesIcon: {
-      backgroundColor: '#6f42c1'
+      backgroundColor: '#444'
     },
     valueTitle: {
-      color: '#0d47a1',
+      color: '#111',
       fontSize: '1.4rem',
       marginBottom: '0.75rem'
     },
@@ -143,7 +143,7 @@ const AboutModal = ({ onClose }) => {
         </button>
         
         <div style={modalStyles.modalBody}>
-          <h2 style={{ fontSize: '2.2rem', color: '#0d47a1', margin: '0 0 1rem 0', textAlign: 'center' }}>
+          <h2 style={{ fontSize: '2.2rem', color: '#111', margin: '0 0 1rem 0', textAlign: 'center' }}>
             About HSP Technologies
           </h2>
           <p style={{ fontSize: '1.1rem', lineHeight: 1.7, color: '#333', marginBottom: '2rem' }}>
@@ -151,7 +151,7 @@ const AboutModal = ({ onClose }) => {
           </p>
           
           <div style={modalStyles.chairmanMessage}>
-            <h3 style={{ marginTop: 0, color: '#0d47a1' }}>Chairman's Message</h3>
+            <h3 style={{ marginTop: 0, color: '#111' }}>Chairman's Message</h3>
             <p style={{ fontStyle: 'italic', marginBottom: 0, color: '#444' }}>
               "Our mission is to empower the brilliant minds of today by providing a streamlined path to publication, innovation, and academic success. We are committed to upholding the highest standards of quality and integrity in all our endeavors."
             </p>
